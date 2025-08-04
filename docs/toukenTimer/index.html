@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刀剣乱舞 カウントダウン</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">刀剣乱舞 カウントダウン</h1>
+            <div class="subtitle">本丸管理ツール</div>
+        </header>
+
+        <main class="main-content">
+            <div class="dashboard">
+                <!-- 遠征セクション -->
+                <section class="section expedition-section">
+                    <h2 class="section-title">遠征</h2>
+                    <div class="countdown-grid">
+                        <div class="countdown-item" data-type="expedition" data-id="1">
+                            <div class="countdown-header">
+                                <span class="countdown-label">第1部隊</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="expedition-time-1" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('expedition', 1)" id="expedition-start-1">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('expedition', 1)" id="expedition-stop-1" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('expedition', 1)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="expedition-1">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="expedition" data-id="2">
+                            <div class="countdown-header">
+                                <span class="countdown-label">第2部隊</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="expedition-time-2" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('expedition', 2)" id="expedition-start-2">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('expedition', 2)" id="expedition-stop-2" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('expedition', 2)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="expedition-2">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="expedition" data-id="3">
+                            <div class="countdown-header">
+                                <span class="countdown-label">第3部隊</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="expedition-time-3" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('expedition', 3)" id="expedition-start-3">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('expedition', 3)" id="expedition-stop-3" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('expedition', 3)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="expedition-3">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="expedition" data-id="4">
+                            <div class="countdown-header">
+                                <span class="countdown-label">第4部隊</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="expedition-time-4" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('expedition', 4)" id="expedition-start-4">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('expedition', 4)" id="expedition-stop-4" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('expedition', 4)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="expedition-4">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="expedition" data-id="5">
+                            <div class="countdown-header">
+                                <span class="countdown-label">第5部隊</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="expedition-time-5" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('expedition', 5)" id="expedition-start-5">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('expedition', 5)" id="expedition-stop-5" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('expedition', 5)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="expedition-5">--:--:--</div>
+                        </div>
+                        <div class="countdown-item">
+                            <p>遠征早見表</p>
+                            <p>4-4 6h 700小判 *2</p>
+                            <p>4-2 5h 400小判 *3</p>
+                            <p>2-1 1.5h 200小判 *4</p>
+                            <p>2-2 3h 200小判 *1</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 手入れセクション -->
+                <section class="section maintenance-section">
+                    <h2 class="section-title">手入れ</h2>
+                    <div class="countdown-grid">
+                        <div class="countdown-item" data-type="maintenance" data-id="1">
+                            <div class="countdown-header">
+                                <span class="countdown-label">手入れ1</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="maintenance-time-1" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('maintenance', 1)" id="maintenance-start-1">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('maintenance', 1)" id="maintenance-stop-1" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('maintenance', 1)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="maintenance-1">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="maintenance" data-id="2">
+                            <div class="countdown-header">
+                                <span class="countdown-label">手入れ2</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="maintenance-time-2" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('maintenance', 2)" id="maintenance-start-2">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('maintenance', 2)" id="maintenance-stop-2" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('maintenance', 2)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="maintenance-2">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="maintenance" data-id="3">
+                            <div class="countdown-header">
+                                <span class="countdown-label">手入れ3</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="maintenance-time-3" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('maintenance', 3)" id="maintenance-start-3">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('maintenance', 3)" id="maintenance-stop-3" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('maintenance', 3)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="maintenance-3">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="maintenance" data-id="4">
+                            <div class="countdown-header">
+                                <span class="countdown-label">手入れ4</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="maintenance-time-4" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('maintenance', 4)" id="maintenance-start-4">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('maintenance', 4)" id="maintenance-stop-4" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('maintenance', 4)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="maintenance-4">--:--:--</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 内番セクション -->
+                <section class="section internal-section">
+                    <h2 class="section-title">内番</h2>
+                    <div class="countdown-grid">
+                        <div class="countdown-item" data-type="internal" data-id="1">
+                            <div class="countdown-header">
+                                <span class="countdown-label">内番（20時間固定）</span>
+                                <div class="time-controls">
+                                    <button class="start-btn" onclick="startInternalDuty()" id="internal-start-1">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('internal', 1)" id="internal-stop-1" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('internal', 1)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="internal-1">--:--:--</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 鍛刀セクション -->
+                <section class="section forging-section">
+                    <h2 class="section-title">鍛刀</h2>
+                    <div class="countdown-grid">
+                        <div class="countdown-item" data-type="forging" data-id="1">
+                            <div class="countdown-header">
+                                <span class="countdown-label">鍛刀1</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="forging-time-1" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('forging', 1)" id="forging-start-1">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('forging', 1)" id="forging-stop-1" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('forging', 1)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="forging-1">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="forging" data-id="2">
+                            <div class="countdown-header">
+                                <span class="countdown-label">鍛刀2</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="forging-time-2" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('forging', 2)" id="forging-start-2">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('forging', 2)" id="forging-stop-2" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('forging', 2)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="forging-2">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="forging" data-id="3">
+                            <div class="countdown-header">
+                                <span class="countdown-label">鍛刀3</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="forging-time-3" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('forging', 3)" id="forging-start-3">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('forging', 3)" id="forging-stop-3" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('forging', 3)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="forging-3">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="forging" data-id="4">
+                            <div class="countdown-header">
+                                <span class="countdown-label">鍛刀4</span>
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="forging-time-4" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('forging', 4)" id="forging-start-4">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('forging', 4)" id="forging-stop-4" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('forging', 4)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="forging-4">--:--:--</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 任意カウントダウンセクション -->
+                <section class="section custom-section">
+                    <h2 class="section-title">任意カウントダウン</h2>
+                    <div class="countdown-grid">
+                        <div class="countdown-item" data-type="custom" data-id="1">
+                            <div class="countdown-header">
+                                <input type="text" class="custom-label" id="custom-label-1" placeholder="ラベル（例：cond値）">
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="custom-time-1" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('custom', 1)" id="custom-start-1">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('custom', 1)" id="custom-stop-1" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('custom', 1)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="custom-1">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="custom" data-id="2">
+                            <div class="countdown-header">
+                                <input type="text" class="custom-label" id="custom-label-2" placeholder="ラベル">
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="custom-time-2" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('custom', 2)" id="custom-start-2">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('custom', 2)" id="custom-stop-2" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('custom', 2)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="custom-2">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="custom" data-id="3">
+                            <div class="countdown-header">
+                                <input type="text" class="custom-label" id="custom-label-3" placeholder="ラベル">
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="custom-time-3" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startCountdown('custom', 3)" id="custom-start-3">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('custom', 3)" id="custom-stop-3" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('custom', 3)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="custom-3">--:--:--</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- タイマーセクション -->
+                <section class="section timer-section">
+                    <h2 class="section-title">タイマー</h2>
+                    <div class="countdown-grid">
+                        <div class="countdown-item" data-type="timer" data-id="1">
+                            <div class="countdown-header">
+                                <input type="text" class="custom-label" id="timer-label-1" placeholder="タイマー名">
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="timer-time-1" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startTimer(1)" id="timer-start-1">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('timer', 1)" id="timer-stop-1" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('timer', 1)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="timer-1">--:--:--</div>
+                        </div>
+                        <div class="countdown-item" data-type="timer" data-id="2">
+                            <div class="countdown-header">
+                                <input type="text" class="custom-label" id="timer-label-2" placeholder="タイマー名">
+                                <div class="time-controls">
+                                    <input type="text" class="custom-time-input" id="timer-time-2" placeholder="HH:MM">
+                                    <button class="start-btn" onclick="startTimer(2)" id="timer-start-2">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('timer', 2)" id="timer-stop-2" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('timer', 2)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="timer-2">--:--:--</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-controls">
+                <button class="reset-btn" onclick="resetAll()">全てリセット</button>
+                <button class="sound-toggle" onclick="toggleSound()" id="sound-toggle">🔊 音ON</button>
+                <button class="notification-btn" onclick="requestNotificationPermission()" id="notification-btn">🔔 通知許可</button>
+                <button class="test-sound-btn" onclick="testSound()">🔊 音声テスト</button>
+            </div>
+        </footer>
+    </div>
+
+    <audio id="notification-sound" preload="auto">
+        <source src="./notification.mp3" type="audio/mpeg">
+        <source src="notification.mp3" type="audio/mpeg">
+        お使いのブラウザは音声再生をサポートしていません。
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html> 
