@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ゲームメンテナンス情報</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", sans-serif;
+    background: #f5f4f0;
+    color: #1a1a1a;
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+  h1 {
+    font-size: 13px;
+    font-weight: 500;
+    color: #888;
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .col { display: flex; flex-direction: column; gap: 8px; }
+  .label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+    padding: 0 4px;
+  }
+  .sub {
+    font-size: 11px;
+    color: #aaa;
+    font-weight: 400;
+  }
+</style>
+</head>
+<body>
+
+<h1>ゲームメンテナンス情報 – 公式X</h1>
+
+<div class="grid">
+
+  <div class="col">
+    <div class="label">FF14 <span class="sub">@FFXIV_NEWS_JP</span></div>
+    <a class="twitter-timeline"
+       data-height="500"
+       data-chrome="noheader nofooter noborders"
+       data-tweet-limit="5"
+       href="https://twitter.com/FFXIV_NEWS_JP">
+      読み込み中...
+    </a>
+  </div>
+
+  <div class="col">
+    <div class="label">刀剣乱舞 <span class="sub">@TOUKEN_STAFF</span></div>
+    <a class="twitter-timeline"
+       data-height="500"
+       data-chrome="noheader nofooter noborders"
+       data-tweet-limit="5"
+       href="https://twitter.com/TOUKEN_STAFF">
+      読み込み中...
+    </a>
+  </div>
+
+  <div class="col">
+    <div class="label">ツイステ <span class="sub">@twst_jp</span></div>
+    <a class="twitter-timeline"
+       data-height="500"
+       data-chrome="noheader nofooter noborders"
+       data-tweet-limit="5"
+       href="https://twitter.com/twst_jp">
+      読み込み中...
+    </a>
+  </div>
+
+</div>
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+</html>
