@@ -92,24 +92,6 @@
                     </div>
                 </section>
 
-                <!-- 内番セクション -->
-                <section class="section internal-section">
-                    <h2 class="section-title">内番</h2>
-                    <div class="countdown-grid">
-                        <div class="countdown-item" data-type="internal" data-id="1">
-                            <div class="countdown-header">
-                                <span class="countdown-label">内番（20時間固定）</span>
-                                <div class="time-controls">
-                                    <button class="start-btn" onclick="startInternalDuty()" id="internal-start-1">開始</button>
-                                    <button class="stop-btn" onclick="stopCountdown('internal', 1)" id="internal-stop-1" style="display: none;">停止</button>
-                                    <button class="reset-btn-small" onclick="resetCountdown('internal', 1)">リセット</button>
-                                </div>
-                            </div>
-                            <div class="countdown-display" id="internal-1">--:--:--</div>
-                        </div>
-                    </div>
-                </section>
-
                 <!-- 鍛刀セクション -->
                 <section class="section forging-section">
                     <h2 class="section-title">鍛刀</h2>
@@ -161,6 +143,24 @@
                                 </div>
                             </div>
                             <div class="countdown-display" id="forging-4">--:--:--</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 内番セクション -->
+                <section class="section internal-section">
+                    <h2 class="section-title">内番</h2>
+                    <div class="countdown-grid">
+                        <div class="countdown-item" data-type="internal" data-id="1">
+                            <div class="countdown-header">
+                                <span class="countdown-label">内番（20時間固定）</span>
+                                <div class="time-controls">
+                                    <button class="start-btn" onclick="startInternalDuty()" id="internal-start-1">開始</button>
+                                    <button class="stop-btn" onclick="stopCountdown('internal', 1)" id="internal-stop-1" style="display: none;">停止</button>
+                                    <button class="reset-btn-small" onclick="resetCountdown('internal', 1)">リセット</button>
+                                </div>
+                            </div>
+                            <div class="countdown-display" id="internal-1">--:--:--</div>
                         </div>
                     </div>
                 </section>
