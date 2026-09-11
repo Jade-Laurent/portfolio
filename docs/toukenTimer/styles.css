@@ -31,6 +31,20 @@ body {
     backdrop-filter: blur(10px);
 }
 
+.back-link {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    color: #b8860b;
+    text-decoration: none;
+    opacity: 0.85;
+}
+
+.back-link:hover {
+    color: #d4af37;
+    opacity: 1;
+}
+
 .title {
     font-size: 2rem;
     color: #d4af37;

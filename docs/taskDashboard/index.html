@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>タスクダッシュボード</title>
+<style>
+  :root{
+    --paper:#F6F5F1;
+    --ink:#242220;
+    --ink-soft:#6B6560;
+    --line:#DEDAD2;
+    --card:#FFFFFF;
+    --work:#4C5B7A;
+    --work-bg:#EDF0F6;
+    --private:#B5651D;
+    --private-bg:#F8EEE3;
+    --game:#4F7A5C;
+    --game-bg:#EAF2EC;
+    --danger:#A23B3B;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",sans-serif;
+    line-height:1.5;
+  }
+  header{
+    padding:28px 24px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    border-bottom:1px solid var(--line);
+  }
+  h1{
+    font-size:1.4rem;
+    margin:0 0 4px;
+    letter-spacing:.01em;
+  }
+  .sub{
+    color:var(--ink-soft);
+    font-size:.85rem;
+    margin:0;
+  }
+  .top-actions{
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+  button{
+    font-family:inherit;
+    font-size:.85rem;
+    border:1px solid var(--line);
+    background:var(--card);
+    color:var(--ink);
+    padding:8px 14px;
+    border-radius:7px;
+    cursor:pointer;
+  }
+  button:hover{ border-color:var(--ink-soft); }
+  button.icon{ padding:8px 10px; }
+  main{
+    padding:22px 24px 60px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .board-section{ margin-bottom:34px; }
+  .board-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:12px;
+  }
+  .board-head h2{
+    font-size:1.05rem;
+    margin:0;
+  }
+  .board-count{
+    font-size:.78rem;
+    color:var(--ink-soft);
+  }
+  .lists{
+    display:grid;
+    grid-auto-flow:column;
+    grid-auto-columns:minmax(220px,1fr);
+    gap:14px;
+    overflow-x:auto;
+    padding-bottom:4px;
+  }
+  @media (min-width: 720px){
+    .lists{ grid-auto-flow:row; grid-template-columns:repeat(3,1fr); overflow-x:visible; }
+  }
+  .list-col{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px;
+    min-height:70px;
+  }
+  .list-col h3{
+    font-size:.82rem;
+    margin:0 0 10px;
+    color:var(--ink-soft);
+    display:flex;
+    justify-content:space-between;
+  }
+  .task-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:7px;
+    padding:9px 10px;
+    margin-bottom:8px;
+    font-size:.86rem;
+  }
+  .task-card:last-child{ margin-bottom:0; }
+  .task-due{
+    display:block;
+    margin-top:4px;
+    font-size:.72rem;
+    color:var(--ink-soft);
+  }
+  .task-due.overdue{ color:var(--danger); font-weight:600; }
+  .empty-list{
+    color:var(--ink-soft);
+    font-size:.8rem;
+    padding:4px 2px;
+  }
+  .work .board-head h2{ color:var(--work); }
+  .work .list-col{ border-top:3px solid var(--work); }
+  .private .board-head h2{ color:var(--private); }
+  .private .list-col{ border-top:3px solid var(--private); }
+  .game .board-head h2{ color:var(--game); }
+  .game .list-col{ border-top:3px solid var(--game); }
+
+  .state-banner{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  .state-banner p{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px 16px;
+    font-size:.85rem;
+    color:var(--ink-soft);
+  }
+  .state-banner p.error{ color:var(--danger); border-color:var(--danger); }
+
+  /* --- 設定パネル --- */
+  .overlay{
+    position:fixed; inset:0;
+    background:rgba(36,34,32,.35);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:10;
+  }
+  .overlay.open{ display:flex; }
+  .panel{
+    background:var(--card);
+    border-radius:12px;
+    padding:26px;
+    max-width:420px;
+    width:100%;
+    box-shadow:0 12px 40px rgba(0,0,0,.18);
+  }
+  .panel h2{ margin:0 0 6px; font-size:1.05rem; }
+  .panel p{ margin:0 0 16px; font-size:.82rem; color:var(--ink-soft); }
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:.78rem; color:var(--ink-soft); margin-bottom:5px; }
+  .field input[type=text]{
+    width:100%;
+    padding:9px 10px;
+    border:1px solid var(--line);
+    border-radius:7px;
+    font-size:.88rem;
+    font-family:inherit;
+  }
+  .checkline{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:.8rem;
+    color:var(--ink-soft);
+    margin-bottom:18px;
+  }
+  .panel-actions{ display:flex; gap:8px; justify-content:flex-end; }
+  .panel-actions button.primary{
+    background:var(--ink);
+    color:#fff;
+    border-color:var(--ink);
+  }
+  .helplink{ font-size:.78rem; }
+  .helplink a{ color:var(--work); }
+  .back-link{
+    display:inline-block;
+    font-size:.8rem;
+    color:var(--ink-soft);
+    text-decoration:none;
+    margin-top:4px;
+  }
+  .back-link:hover{ color:var(--ink); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <a class="back-link" href="../index.html">← TOPへ戻る</a>
+    <h1>タスクダッシュボード</h1>
+    <p class="sub" id="lastUpdated">未取得</p>
+  </div>
+  <div class="top-actions">
+    <button class="icon" id="refreshBtn" title="更新">⟳ 更新</button>
+    <button class="icon" id="settingsBtn" title="設定">⚙ 設定</button>
+  </div>
+</header>
+
+<div class="state-banner" id="stateBanner" style="display:none;"><p id="stateMsg"></p></div>
+
+<main id="boards" style="display:none;">
+  <section class="board-section work">
+    <div class="board-head"><h2>Todo(Work)</h2><span class="board-count" id="count-work"></span></div>
+    <div class="lists" id="lists-work"></div>
+  </section>
+  <section class="board-section private">
+    <div class="board-head"><h2>Todo(Private)</h2><span class="board-count" id="count-private"></span></div>
+    <div class="lists" id="lists-private"></div>
+  </section>
+  <section class="board-section game">
+    <div class="board-head"><h2>Game</h2><span class="board-count" id="count-game"></span></div>
+    <div class="lists" id="lists-game"></div>
+  </section>
+</main>
+
+<div class="overlay" id="overlay">
+  <div class="panel">
+    <h2>Trello接続設定</h2>
+    <p>APIキーとトークンはこの端末上のブラウザにのみ保持され、Trelloへ直接通信します(このページのソースには含まれません)。</p>
+    <div class="field">
+      <label for="apiKey">API Key</label>
+      <input type="text" id="apiKey" autocomplete="off" placeholder="Trello API Key">
+    </div>
+    <div class="field">
+      <label for="apiToken">Token</label>
+      <input type="text" id="apiToken" autocomplete="off" placeholder="Trello Token">
+    </div>
+    <p class="helplink">
+      Keyの取得: <a href="https://trello.com/app-key" target="_blank" rel="noopener">trello.com/app-key</a><br>
+      Tokenの発行: <span id="tokenLinkWrap">Key入力後にリンクを表示します</span>
+    </p>
+    <label class="checkline">
+      <input type="checkbox" id="rememberBox">
+      このデバイスに記憶する(次回から入力不要にする)
+    </label>
+    <div class="panel-actions">
+      <button id="cancelSettings">閉じる</button>
+      <button class="primary" id="saveSettings">保存して読み込む</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const BOARDS = [
+  { key:'work',    name:'Todo(Work)',    id:'6aa1903912cb203c92646c2a' },
+  { key:'private',  name:'Todo(Private)', id:'6aa209dba4862f5381f8eb05' },
+  { key:'game',     name:'Game',          id:'6aa209e91fd3b8dc83c266e1' },
+];
+const STORAGE_KEY = 'trello_dash_creds_v1';
+const REFRESH_MS = 5 * 60 * 1000;
+
+let creds = { key:'', token:'' };
+
+function loadStoredCreds(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(parsed.key && parsed.token) return parsed;
+    }
+  }catch(e){}
+  return null;
+}
+
+function showPanel(){
+  document.getElementById('apiKey').value = creds.key || '';
+  document.getElementById('apiToken').value = creds.token || '';
+  document.getElementById('overlay').classList.add('open');
+}
+function hidePanel(){
+  document.getElementById('overlay').classList.remove('open');
+}
+
+document.getElementById('settingsBtn').addEventListener('click', showPanel);
+document.getElementById('cancelSettings').addEventListener('click', hidePanel);
+document.getElementById('refreshBtn').addEventListener('click', () => loadAll());
+
+document.getElementById('apiKey').addEventListener('input', (e) => {
+  const key = e.target.value.trim();
+  const wrap = document.getElementById('tokenLinkWrap');
+  if(key){
+    const url = `https://trello.com/1/authorize?expiration=never&name=TaskDashboard&scope=read&response_type=token&key=${encodeURIComponent(key)}`;
+    wrap.innerHTML = `<a href="${url}" target="_blank" rel="noopener">こちらでトークンを発行</a>`;
+  } else {
+    wrap.textContent = 'Key入力後にリンクを表示します';
+  }
+});
+
+document.getElementById('saveSettings').addEventListener('click', () => {
+  const key = document.getElementById('apiKey').value.trim();
+  const token = document.getElementById('apiToken').value.trim();
+  if(!key || !token){
+    showState('APIキーとトークンの両方を入力してください。', true);
+    return;
+  }
+  creds = { key, token };
+  if(document.getElementById('rememberBox').checked){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(creds));
+  } else {
+    localStorage.removeItem(STORAGE_KEY);
+  }
+  hidePanel();
+  loadAll();
+});
+
+function showState(msg, isError){
+  const banner = document.getElementById('stateBanner');
+  const el = document.getElementById('stateMsg');
+  el.textContent = msg;
+  el.className = isError ? 'error' : '';
+  banner.style.display = 'block';
+}
+function hideState(){
+  document.getElementById('stateBanner').style.display = 'none';
+}
+
+function fmtDue(dateStr, complete){
+  if(!dateStr) return '';
+  const d = new Date(dateStr);
+  const now = new Date();
+  const overdue = !complete && d < now;
+  const label = d.toLocaleDateString('ja-JP', { month:'numeric', day:'numeric' }) + ' ' +
+                d.toLocaleTimeString('ja-JP', { hour:'2-digit', minute:'2-digit' });
+  return `<span class="task-due${overdue ? ' overdue' : ''}">${overdue ? '期限切れ ' : '期限 '}${label}</span>`;
+}
+
+async function fetchBoard(board){
+  const url = `https://api.trello.com/1/boards/${board.id}/lists?cards=open&fields=name&card_fields=name,due,dueComplete&key=${encodeURIComponent(creds.key)}&token=${encodeURIComponent(creds.token)}`;
+  const res = await fetch(url);
+  if(!res.ok){
+    if(res.status === 401) throw new Error('認証エラー: APIキー/トークンを確認してください');
+    throw new Error(`取得失敗 (${board.name}): HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+function renderBoard(board, lists){
+  const container = document.getElementById(`lists-${board.key}`);
+  container.innerHTML = '';
+  let totalCards = 0;
+  lists.forEach(list => {
+    const col = document.createElement('div');
+    col.className = 'list-col';
+    const cards = list.cards || [];
+    totalCards += cards.length;
+    col.innerHTML = `<h3>${list.name}<span>${cards.length}</span></h3>` +
+      (cards.length
+        ? cards.map(c => `<div class="task-card">${escapeHtml(c.name)}${fmtDue(c.due, c.dueComplete)}</div>`).join('')
+        : `<div class="empty-list">タスクなし</div>`);
+    container.appendChild(col);
+  });
+  document.getElementById(`count-${board.key}`).textContent = `${totalCards}件`;
+}
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+async function loadAll(){
+  if(!creds.key || !creds.token){
+    showPanel();
+    return;
+  }
+  showState('読み込み中…', false);
+  try{
+    for(const board of BOARDS){
+      const lists = await fetchBoard(board);
+      renderBoard(board, lists);
+    }
+    hideState();
+    document.getElementById('boards').style.display = 'block';
+    document.getElementById('lastUpdated').textContent =
+      '最終更新: ' + new Date().toLocaleString('ja-JP');
+  }catch(err){
+    showState(err.message || '読み込みに失敗しました', true);
+  }
+}
+
+(function init(){
+  const stored = loadStoredCreds();
+  if(stored){
+    creds = stored;
+    loadAll();
+  } else {
+    showPanel();
+  }
+  setInterval(() => { if(creds.key && creds.token) loadAll(); }, REFRESH_MS);
+})();
+</script>
+
+</body>
+</html>
